@@ -1,0 +1,22 @@
+node_modules
+dist
+dist-*
+*.local
+.vite-inspect
+.remote-assets
+components.d.ts
+
+# Editor / OS / tooling clutter
+.DS_Store
+.idea
+.vscode
+.playwright-mcp
+
+# Per-talk, per-person AI context (scope, decisions, slide status)
+CLAUDE.local.md
+.claude/settings.local.json
+
+# slidev export output
+*-export.pdf
+*-export.pptx
+*-export/

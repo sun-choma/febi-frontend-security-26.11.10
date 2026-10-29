@@ -1,0 +1,86 @@
+name: Deploy Slidev to GitHub Pages
+
+on:
+  push:
+    # Both, so a repo created from the template deploys whichever default branch it ends up with
+    branches: [ master, main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          # playwright-chromium is only for local `pnpm export`; CI doesn't need the browser
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+      # Fails when Pages isn't enabled yet (a fresh repo from the template). That's expected:
+      # the build still runs as a check, the deploy is skipped, and the run explains what to do.
+      - name: Check GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v6
+        continue-on-error: true
+
+      - name: Use the Pages base path
+        if: steps.pages.outcome == 'success'
+        # "/<repo>", or "" for a custom domain / <owner>.github.io repo; read by vite.config.ts
+        run: echo "PAGES_BASE_PATH=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_ENV"
+
+      - name: Pages is not enabled yet
+        if: steps.pages.outcome != 'success'
+        run: |
+          echo "::notice title=GitHub Pages is not enabled yet::Run 'pnpm pages' in your clone, or Settings > Pages > Source: GitHub Actions, then re-run this workflow."
+          {
+            echo "### GitHub Pages is not enabled yet"
+            echo ""
+            echo "The deck was built, but not deployed. One-time setup:"
+            echo ""
+            echo "- run \`pnpm pages\` in your clone (enables Pages and starts a deploy), or"
+            echo "- Settings → Pages → Source: **GitHub Actions**, then re-run this workflow."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The template repo itself publishes its guide; a talk repo publishes slides.md
+      - name: Preflight (non-blocking; warnings show as annotations)
+        run: pnpm preflight --offline ${{ github.repository == 'sun-choma/febi-template' && '--guide' || '' }}
+        continue-on-error: true
+
+      - name: Build Slidev
+        run: pnpm build ${{ github.repository == 'sun-choma/febi-template' && 'guide.md' || '' }}
+
+      - name: Upload artifact
+        if: steps.pages.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        if: steps.pages.outcome == 'success'
+        id: deployment
+        uses: actions/deploy-pages@v4

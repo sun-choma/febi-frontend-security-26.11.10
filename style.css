@@ -1,0 +1,263 @@
+/* FEBi shared styles.
+   Slidev scopes per-slide <style> to that slide, so anything used on 2+ slides lives here.
+   Colours: use the Dracula theme's own variables (--purple, --cyan, --green, --orange,
+   --pink, --red, --yellow, --comment, --foreground, --background, --current-line) plus
+   the two extras below. Avoid hardcoded hex in slides and components. */
+
+:root {
+  --panel: #21222c;   /* darker surface for boxes on the slide background */
+  --border: #44475a;  /* = Dracula "current line"; borders, dividers */
+}
+
+/* --- Section divider (layout: section). Accent per section via frontmatter:
+       style: "--accent: var(--orange)" --- */
+.section-num {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+  color: var(--accent, var(--purple));
+}
+.section-sub {
+  font-size: 1rem;
+  color: var(--comment);
+  margin-top: 0.5rem;
+}
+
+/* --- Subtitle line directly under a slide's h1 --- */
+.sub {
+  font-size: 1rem;
+  color: var(--comment);
+  margin: -0.5rem 0 1.5rem;
+}
+
+/* --- Columns: equal by default; `.fit` sizes a column to its content (demo, canvas);
+       `.middle` centres vertically. Replaces two-cols-header + per-slide gap overrides. --- */
+.cols {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.cols > * { flex: 1 1 0; min-width: 0; }
+.cols > .fit { flex: 0 0 auto; }
+.cols.middle { align-items: center; }
+
+/* Small column header, e.g. NG / OK, browser / server. Not uppercased: labels are often code. */
+.col-h {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--comment);
+  margin-bottom: 0.75rem;
+}
+
+/* Good / bad colouring for headers, icons, table cells */
+.ok { color: var(--green); }
+.ng { color: var(--red); }
+
+/* --- Cards --- */
+.card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 1rem 1.25rem;
+}
+.card.lit { border-color: var(--accent, var(--green)); }
+
+/* --- Small text --- */
+.note {          /* muted aside under code or a demo */
+  margin-top: 0.75rem;
+  font-size: 0.85em;
+  color: var(--comment);
+  line-height: 1.5;
+}
+.notes {         /* bottom nuance list: <div class="notes"> + markdown list */
+  max-width: 760px;
+  margin: 1.3rem auto 0;
+  font-size: 0.8rem;
+}
+.notes ul { list-style: none; padding: 0; margin: 0; }
+.notes li { color: var(--comment); margin: 0.3rem 0; line-height: 1.35; }
+
+/* --- Closing lines of a slide (usually with v-click) --- */
+.punch {         /* the one-line takeaway */
+  margin-top: 1.75rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--purple);
+}
+.ask {           /* open question, answered later */
+  margin-top: 3rem;
+  font-size: 1.4rem;
+  color: var(--orange);
+}
+.bridge {        /* hand-off to the next slide */
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 1.05rem;
+  color: var(--comment);
+}
+.bridge b { color: var(--cyan); }
+.foot {          /* small hint, e.g. "DevTools → Network → EventStream" */
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+  font-size: 0.75rem;
+  color: var(--comment);
+}
+.foot b { color: var(--cyan); }
+.source {        /* inline citation for a non-MDN source, bottom of the slide:
+                    <div class="source"><lucide-link /><a href="…" target="_blank">web.dev: Rendering performance</a></div> */
+  position: absolute;
+  left: 3.5rem;
+  bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--comment);
+}
+
+/* --- Inline pill badge, e.g. <span class="badge">experimental</span>.
+       Colour via style="--c: var(--green)" --- */
+.badge {
+  font-size: 0.5em;
+  font-weight: 700;
+  vertical-align: middle;
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+  background: var(--c, var(--orange));
+  color: var(--background);
+}
+
+/* --- "Where this runs" tag above a code block --- */
+.where {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--comment);
+}
+
+/* --- Code --- */
+.small-code .slidev-code { font-size: 0.7rem !important; line-height: 1.45 !important; }
+
+/* Hand-coloured pseudo-code / tree box: <pre class="tree"><span class="t">…</span></pre> */
+.tree {
+  margin: 0;
+  font-family: var(--slidev-code-font-family, monospace);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--comment);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+}
+.tree .t { color: var(--pink); }    /* tag / selector */
+.tree .s { color: var(--yellow); }  /* string */
+.tree .k { color: var(--cyan); }    /* keyword */
+.tree .p { color: var(--green); }   /* property */
+.tree .v { color: var(--purple); }  /* value */
+.tree .muted { color: var(--comment); font-size: 0.85em; }
+
+/* --- Agenda and recap: <div class="agenda"><Link to="alias" class="agenda-item" style="--accent: …">
+       <span class="num">01</span> Title <small>one line</small></Link></div>
+       Link to a slide's `routeAlias`, never <a href="/N"> (breaks under the deploy base path). --- */
+.agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 36rem;
+  margin: 1.5rem auto 0;
+}
+#app .slidev-layout a.agenda-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  padding: 0.6rem 1rem;
+  color: var(--foreground);
+  text-decoration: none;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent, var(--purple));
+  border-radius: 0.5rem;
+  transition: border-color 0.15s;
+}
+#app .slidev-layout a.agenda-item:hover { border-color: var(--accent, var(--purple)); }
+.agenda-item .num {
+  margin-right: 0.5rem;
+  font-family: var(--slidev-code-font-family, monospace);
+  font-size: 0.75em;
+  color: var(--accent, var(--purple));
+}
+.agenda-item small { margin-left: auto; padding-left: 1rem; font-size: 0.75rem; color: var(--comment); }
+
+/* --- Box-and-arrow diagram: <div class="flow"><div class="step">A</div><lucide-arrow-right class="arrow" />…</div>.
+       `.step.lit` highlights a step in --accent. --- */
+.flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.flow .step {
+  flex: 0 1 auto;
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.85rem;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.flow .step small { display: block; font-size: 0.7rem; color: var(--comment); }
+.flow .step.lit { color: var(--accent, var(--purple)); border-color: var(--accent, var(--purple)); }
+.flow .arrow { flex: 0 0 auto; color: var(--comment); }
+
+/* --- Closing slide: <div class="cta"> + <div class="pills"><a class="pill">…</a></div>.
+       `#app .slidev-layout a.` is needed to beat the theme's `#app … a { color: cyan }`. --- */
+.cta {
+  font-size: 1.05rem;
+  color: var(--comment);
+  margin-top: 0.75rem;
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+#app .slidev-layout a.pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.78rem;
+  color: var(--foreground);
+  text-decoration: none;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: border-color 0.15s, color 0.15s;
+}
+#app .slidev-layout a.pill:hover {
+  color: var(--purple);
+  border-color: var(--purple);
+}
+
+/* --- Emoji alignment. Colour-emoji glyphs carry extra right-side whitespace, so they
+       read as shifted left however they're centred. Pin the font, nudge the ink. --- */
+.emoji {
+  --emoji-nudge: 0.06em;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-variant-emoji: emoji;
+  line-height: 1;
+  translate: var(--emoji-nudge);
+}

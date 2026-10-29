@@ -1,0 +1,32 @@
+{
+  "name": "febi-template",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@11.18.0",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "preview": "vite preview --port 4173",
+    "export": "slidev export",
+    "pages": "node scripts/pages.mjs",
+    "check": "node scripts/check.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "guide": "slidev guide.md --open",
+    "guide:en": "slidev guide.en.md --open"
+  },
+  "dependencies": {
+    "@slidev/cli": "53.0.0",
+    "slidev-theme-dracula": "0.2.5",
+    "vue": "^3.5.33"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "^1.2.11",
+    "@iconify-json/lucide": "^1.2.143",
+    "@iconify-json/ph": "^1.2.2",
+    "@iconify-json/simple-icons": "^1.2.92",
+    "playwright-chromium": "^1.64.0"
+  }
+}
