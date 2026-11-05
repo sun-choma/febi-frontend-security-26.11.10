@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo: JSON-LD, escaped</title>
+  <link rel="stylesheet" href="demo.css">
+  <script src="steal.js"></script>
+</head>
+<body>
+  <p class="demo-note">Demo: the same page, rendered with <b>JSON.stringify(…).replace(/&lt;/g, '\u003c')</b>. The script stays intact, nothing is sent</p>
+  <h1>Desk lamp</h1>
+  <script type="application/ld+json">
+{"@type":"Product","name":"Desk lamp","description":"\u003c/script>\u003cimg src=x onerror=steal()>"}
+</script>
+  <p>$39</p>
+  <p id="desc"></p>
+  <script src="desc.js"></script>
+</body>
+</html>

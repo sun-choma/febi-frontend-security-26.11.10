@@ -1,0 +1,9 @@
+/* Shared look for the attack demo pages. System colors only, so they follow light/dark mode. */
+:root { color-scheme: light dark; }
+body { max-width: 40rem; margin: 2rem auto; padding: 0 1rem; font: 16px/1.6 system-ui, sans-serif; background: Canvas; color: CanvasText; }
+.demo-note { padding: 0.5rem 0.75rem; border: 1px dashed GrayText; border-radius: 6px; font-size: 13px; color: GrayText; }
+.demo-note b { color: CanvasText; }
+img { width: 32px; height: 32px; }
+button { font: inherit; padding: 0.3rem 1rem; }
+code { font-family: ui-monospace, monospace; }
+#desc { font-size: 14px; color: GrayText; }

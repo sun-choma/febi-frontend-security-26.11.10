@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attack demos</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <h1>Attack demos</h1>
+  <p class="demo-note">Small pages from the talk "Attacks your framework won't stop". Open one with DevTools open. The fake token goes to evil.example, a reserved domain that never resolves: nothing is sent anywhere</p>
+  <ul>
+    <li><a href="hook.html">One image tag, one stolen token</a> (innerHTML)</li>
+    <li><a href="csp.html">The same post, with a CSP</a></li>
+    <li><a href="jsonld.html">JSON-LD breakout</a> and <a href="jsonld-fixed.html">escaped</a></li>
+    <li><a href="login.html?next=javascript:steal()">javascript: in ?next=</a> and <a href="login-fixed.html?next=javascript:steal()">with an origin check</a></li>
+    <li><a href="sanitize.html">The same post, sanitized</a></li>
+    <li><a href="cdn.html">The CDN file changes</a> and <a href="cdn-pinned.html">pinned with integrity</a></li>
+  </ul>
+</body>
+</html>

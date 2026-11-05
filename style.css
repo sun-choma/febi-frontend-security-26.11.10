@@ -63,6 +63,8 @@
   padding: 1rem 1.25rem;
 }
 .card.lit { border-color: var(--accent, var(--green)); }
+.card ul { margin: 0.4rem 0 0; padding-left: 1.1rem; }
+.card li { font-size: 0.85rem; line-height: 1.5; margin: 0.2rem 0; }
 
 /* --- Small text --- */
 .note {          /* muted aside under code or a demo */
@@ -78,6 +80,17 @@
 }
 .notes ul { list-style: none; padding: 0; margin: 0; }
 .notes li { color: var(--comment); margin: 0.3rem 0; line-height: 1.35; }
+
+/* --- A numbered step where the damage happens (attack timelines) --- */
+.here, .here strong { color: var(--red); }
+.here::before { content: "⚠ "; }
+
+/* --- What DevTools shows next to a demo page link (a static depiction of real output) --- */
+.devtools { border: 1px solid var(--border); border-radius: 0.5rem; background: var(--panel); overflow: hidden; }
+.devtools .dt-h { padding: 0.25rem 0.6rem; border-bottom: 1px solid var(--border); font-size: 0.7rem; color: var(--comment); }
+.devtools .dt-row { padding: 0.4rem 0.6rem; font: 0.7rem/1.5 var(--slidev-code-font-family, monospace); word-break: break-word; }
+.devtools .dt-row + .dt-row { border-top: 1px solid var(--border); }
+.devtools + .devtools { margin-top: 0.5rem; }
 
 /* --- Closing lines of a slide (usually with v-click) --- */
 .punch {         /* the one-line takeaway */
@@ -261,3 +274,9 @@
   line-height: 1;
   translate: var(--emoji-nudge);
 }
+
+/* --- Incident slides (section 04): "What happened" story + a takeaway card --- */
+.story li { font-size: 0.95rem; line-height: 1.45; margin: 0.4rem 0; }
+.story > :first-child { flex: 1.35 1 0; }
+.story .takeaway { align-self: flex-start; }
+.story .takeaway p { font-size: 1rem; line-height: 1.5; }

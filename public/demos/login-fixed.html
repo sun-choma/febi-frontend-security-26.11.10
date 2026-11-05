@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo: ?next= with an origin check</title>
+  <link rel="stylesheet" href="demo.css">
+  <script src="steal.js"></script>
+</head>
+<body>
+  <p class="demo-note">Demo: the same link, with an origin check before navigating</p>
+  <p>Signed in. Back to where you were?</p>
+  <button id="go">Continue</button>
+  <p id="msg"></p>
+  <script>
+    const next = new URLSearchParams(location.search).get('next') ?? './'
+    document.getElementById('go').onclick = () => {
+      const url = new URL(next, location.origin)
+      if (url.origin === location.origin) location.href = url.href
+      else document.getElementById('msg').textContent = `Refused: ${next} is not on ${location.origin}`
+    }
+  </script>
+</body>
+</html>

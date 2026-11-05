@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo: the CDN file changes, pinned</title>
+  <link rel="stylesheet" href="demo.css">
+  <script src="steal.js"></script>
+</head>
+<body>
+  <p class="demo-note">Demo: a chat widget from a CDN (<b>cdn/chat.js</b>), pinned with the hash of the original file. Check DevTools → <b>Console</b>: the browser refuses the changed file</p>
+  <h1>Online shop</h1>
+  <p id="chat">Chat: …</p>
+  <!-- integrity = sha256 of cdn/chat.original.js, the file you reviewed -->
+  <script src="cdn/chat.js" integrity="sha256-U2lZOgB1253SUwsEXmAs4lIMKyzi2+Ex1rrogyP2+E8=" crossorigin="anonymous"></script>
+</body>
+</html>
